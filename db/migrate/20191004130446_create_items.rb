@@ -5,7 +5,6 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.string :description
       t.integer :price
       t.integer :discount_price
-      t.integer :user_id
       t.integer :quantity
       t.timestamps
     end

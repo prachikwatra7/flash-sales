@@ -9,6 +9,15 @@
   </head>
 
   <body>
+    
+    <%= render 'layouts/navigation' %>
+    
+    <div class="w3-bar w3-border-teal w3-left-align w3-padding-16">
+      <%= render 'layouts/messages' %>
+    </div>
     <%= yield %>
+    <%= render 'layouts/footer' %>
+    
+  
   </body>
 </html>

@@ -1,25 +1,62 @@
-<p id="notice"><%= notice %></p>
+<h1 align="center">Welcome!!!</h1>
+<% if logged_in? %>
 
-<h1>Items</h1>
+<% @items.each do |item| %>
 
+  <div class="w3-container w3-padding-32 w3-theme-l5 w3-center" id="contact">
+    <div class="w3-row">
+      <h3 align="center"><span class="w3-xlarge w3-border-teal w3-bottombar">Deal of the Day!!</span></h3>
+      <p><i class="fa fa-stop-circle-o w3-text-teal w3-xlarge"></i> Title: <%= item.title %></p>
+      <% if item.title == "Lavie Handbag + Sling Bag" %>
+        <%= image_tag 'bag.jpg', class: "image1"%>
+      <% elsif item.title == "Bed + Matress" %>
+        <%= image_tag 'bed.jpg', class: "image1"%>
+      <% elsif item.title == "Lunch box + Water Bottle" %>
+        <%= image_tag 'lunch.jpg', class: "image1"%>
+      <% elsif item.title == "Lenovo Laptop + Bag" %>
+        <%= image_tag 'laptop.jpg', class: "image1"%>
+      <% else %>
+        <%= image_tag 'deal.jpg', class: "image1"%>
+      <% end %>
+      <p><i class="fa fa-stop-circle-o w3-text-teal w3-xlarge"></i> Description: <%= item.description %></p>
+      <p><i class="fa fa-stop-circle-o w3-text-teal w3-xlarge"></i> Price: <%= item.price %></p>
+      <p><i class="fa fa-stop-circle-o w3-text-teal w3-xlarge"></i> Discounted Price: <%= item.discount_price %></p>
+      <p><i class="fa fa-stop-circle-o w3-text-teal w3-xlarge"></i> Quantity: <%= item.quantity %></p>
+      <p><i class="fa fa-stop-circle-o w3-text-teal w3-xlarge"></i> Creation time: <%= item.created_at %></p>
+      <%= link_to 'Buy Now', root_path, :onclick=> item.quantity = item.quantity - 1, class: "w3-button w3-center w3-theme w3-hover-teal w3-xlarge w3-theme btn w3-bar-item w3-text-white",  data: { confirm: 'Are you sure?' } %> 
+           <% item.save %>
+      
+     </div> 
+  </div>
+
+<% if current_user.admin? %>
 <table>
   <thead>
     <tr>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
-    <% @items.each do |item| %>
+    
       <tr>
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="w3-large w3-border-teal "><%= link_to 'Show', item %></td>
+        <td class="w3-large w3-border-teal "><%= link_to 'Edit', edit_item_path(item) %></td>
+        <td class="w3-large w3-border-teal "><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
       </tr>
-    <% end %>
-  </tbody>
+    
+   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Item', new_item_path %>
+  <p><i class="fa fa-stop-circle-o w3-text-teal w3-xlarge"></i> Current time: <%= time1 = Time.current %> </p>
+  <p><i class="fa fa-stop-circle-o w3-text-teal w3-xlarge"></i> Next deal will be live at: <%= time = item.created_at + 86400%></p>
+    
+   
+    
+   <% if time1 > time %>
+      <%= item.destroy %>
+      <%= redirect_to 'New Item', new_item_path %>
+   <% end %>
+  <% end %>
+<% end %>
+<% end %>

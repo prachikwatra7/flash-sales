@@ -1,17 +1,50 @@
-<%= form_for(item) do |f| %>
-  <% if item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
 
-      <ul>
-      <% item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<% if @item.errors.any? %>
+   <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h2 class="panel-title">
+            <%= pluralize(@item.errors.count, "error") %>
+            prohibited this deal from being saved:
+          </h2>
+          <div class="panel-body">
+            <ul>
+              <% @item.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+              <% end %>
+            </ul> 
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <%= form_for @item do |f| %>
+  <div class="w3-container w3-card-4 w3-padding-16 w3-white form">
+      <div class="w3-secton">      
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "w3-input" %>
+      </div>
+     
+      <div class="w3-secton">      
+        <%= f.label :description %>
+        <%= f.text_field :description, class: "w3-input" %>
+      </div>
+      <div class="w3-secton">      
+        <%= f.label :price %>
+        <%= f.text_field :price, class: "w3-input" %>
+      </div>
+      <div class="w3-secton">      
+        <%= f.label :discount_price %>
+        <%= f.text_field :discount_price, class: "w3-input" %>
+      </div>
+      <div class="w3-secton">      
+        <%= f.label :quantity %>
+        <%= f.text_field :quantity, class: "w3-input" %>
+      </div>
+      <%= f.submit class: 'w3-button w3-right w3-theme w3-hover-teal' %>
+      
   </div>
 <% end %>
